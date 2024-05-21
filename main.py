@@ -1,7 +1,7 @@
-
 import pygame
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
 from checkers.game import Game
+from checkers.menu import main_menu
 
 FPS = 60
 
@@ -15,14 +15,18 @@ def get_row_col_from_mouse(pos):
     return row, col
 
 def main():
-    run = True
+    pygame.init()
     clock = pygame.time.Clock()
+
+    main_menu()  # Show the main menu
+
     game = Game(WIN)
 
+    run = True
     while run:
         clock.tick(FPS)
 
-        if game.winner() != None:
+        if game.winner() is not None:
             print(game.winner())
             run = False
 
@@ -39,4 +43,5 @@ def main():
     
     pygame.quit()
 
-main()
+if __name__ == "__main__":
+    main()
