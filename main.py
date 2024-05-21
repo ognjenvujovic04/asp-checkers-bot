@@ -31,12 +31,12 @@ def main():
     pygame.init()
     FPS = 60
     
-    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Checkers')
 
     clock = pygame.time.Clock()
 
-    game = Game(WIN)
+    game = Game(window)
 
     run = True
     winner = None
@@ -45,7 +45,7 @@ def main():
 
         if game.winner() is not None:
             winner = game.winner()
-            display_winner(WIN, winner)
+            display_winner(window, winner)
             pygame.time.delay(5000)  # Delay for 5 seconds
             run = False
             

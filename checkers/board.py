@@ -9,11 +9,11 @@ class Board:
         self.black_kings = self.white_kings = 0
         self.create_board()
     
-    def draw_squares(self, win):
-        win.fill(BLACK)
+    def draw_squares(self, window):
+        window.fill(BLACK)
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
-                pygame.draw.rect(win, WHITE, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                pygame.draw.rect(window, WHITE, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
@@ -43,13 +43,13 @@ class Board:
                 else:
                     self.board[row].append(0)
         
-    def draw(self, win):
-        self.draw_squares(win)
+    def draw(self, window):
+        self.draw_squares(window)
         for row in range(ROWS):
             for col in range(COLS):
                 piece = self.board[row][col]
                 if piece != 0:
-                    piece.draw(win)
+                    piece.draw(window)
 
     def remove(self, pieces):
         for piece in pieces:
