@@ -1,5 +1,5 @@
 import pygame
-from .constants import BLACK_PIECE, WHITE, BLUE, SQUARE_SIZE
+from .constants import BLACK_PIECE, WHITE, BROWN, SQUARE_SIZE
 from checkers.board import Board
 
 class Game:
@@ -55,7 +55,7 @@ class Game:
     def draw_valid_moves(self, moves):
         for move in moves:
             row, col = move
-            pygame.draw.circle(self.win, BLUE, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 15)
+            pygame.draw.circle(self.win, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
 
     def change_turn(self):
         self.valid_moves = {}

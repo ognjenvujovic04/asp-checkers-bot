@@ -68,6 +68,7 @@ def main_menu():
         pygame.display.update()
 
 def return_choice(choice):
+    pygame.display.quit()
     return choice
 
 if __name__ == "__main__":
