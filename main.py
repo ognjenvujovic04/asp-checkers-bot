@@ -1,12 +1,8 @@
 import pygame
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
+import os
+from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE
 from checkers.game import Game
 from checkers.menu import main_menu
-
-FPS = 60
-
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Checkers')
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -14,11 +10,17 @@ def get_row_col_from_mouse(pos):
     col = x // SQUARE_SIZE
     return row, col
 
-def main():
+def main():    
+    mode = main_menu() # 0 for jumping optional, 1 for jumping mandatory
+    
     pygame.init()
+    FPS = 60
+     
+    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption('Checkers')
+
     clock = pygame.time.Clock()
 
-    main_menu()  # Show the main menu
 
     game = Game(WIN)
 

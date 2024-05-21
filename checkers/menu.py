@@ -1,4 +1,5 @@
 import pygame
+from checkers.constants import LOGO_PATH
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -26,7 +27,6 @@ class Button:
 
 def main_menu():
     pygame.init()
-    clock = pygame.time.Clock()
     
     screen = pygame.display.set_mode((500,500))
     screen.fill(WHITE)
@@ -36,21 +36,20 @@ def main_menu():
     text_rect = text.get_rect(center=(screen.get_width() // 2, 50))
     screen.blit(text, text_rect)
 
-    logo = pygame.image.load("../assets/checkers-logo.png")
+    logo = pygame.image.load(LOGO_PATH)
     logo = pygame.transform.scale(logo, (200, 200))
     logo_rect = logo.get_rect(center=(screen.get_width() // 2, 200))
     screen.blit(logo, logo_rect)
+    
+    font_path = pygame.font.match_font('arial')
+    font = pygame.font.Font(font_path, 20)
+    text = font.render("Choose a mode:", True, BLACK)
+    text_rect = text.get_rect(center=(screen.get_width() // 2, 315))
+    screen.blit(text, text_rect)
 
     buttons = []
-    buttons.append(Button(100, 350, 300, 50, "Jumping Mandatory", GRAY, WHITE, return_choice, 1))
-    buttons.append(Button(100, 450, 300, 50, "Jumping Optional", GRAY, WHITE, return_choice, 0))
-
-    total_button_height = sum(button.rect.height + 10 for button in buttons)
-    current_y = (screen.get_height() - total_button_height) // 2
-
-    for button in buttons:
-        button.rect.y = current_y
-        current_y += button.rect.height + 10
+    buttons.append(Button(100, 370, 300, 50, "Jumping Mandatory", GRAY, WHITE, return_choice, 1))
+    buttons.append(Button(100, 430, 300, 50, "Jumping Optional", GRAY, WHITE, return_choice, 0))
 
     while True:
         for event in pygame.event.get():
@@ -71,5 +70,5 @@ def main_menu():
 def return_choice(choice):
     return choice
 
-
-main_menu()
+if __name__ == "__main__":
+    main_menu()

@@ -1,4 +1,4 @@
-from .constants import RED, WHITE, SQUARE_SIZE, GREY, CROWN
+from .constants import WHITE_PIECE, WHITE, SQUARE_SIZE, GREY, CROWN
 import pygame
 
 class Piece:
