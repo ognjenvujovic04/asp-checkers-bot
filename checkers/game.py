@@ -76,3 +76,11 @@ class Game:
             self.turn = WHITE
         else:
             self.turn = BLACK_PIECE
+            
+    def get_board(self):
+        return self.board
+    
+    def bot_move(self):
+        eval, self.board = self.minimax(self.board, 3, True)[1]
+        self.change_turn()
+        return self.board
