@@ -10,10 +10,14 @@ class Game:
     def update(self):
         self.board.draw(self.window)
         self.draw_valid_moves(self.valid_moves)
+        if self.selected:
+            self.draw_selected_piece_ring(self.selected_row, self.selected_col)
         pygame.display.update()
 
     def _init(self):
         self.selected = None
+        self.selected_row = None
+        self.selected_col = None
         self.board = Board()
         self.turn = BLACK_PIECE
         self.valid_moves = {}
@@ -34,6 +38,8 @@ class Game:
         piece = self.board.get_piece(row, col)
         if piece != 0 and piece.color == self.turn:
             self.selected = piece
+            self.selected_row = row
+            self.selected_col = col
             self.valid_moves = self.board.get_valid_moves(piece)
             return True
             
@@ -46,6 +52,7 @@ class Game:
             skipped = self.valid_moves[(row, col)]
             if skipped:
                 self.board.remove(skipped)
+            self.selected = None
             self.change_turn()
         else:
             return False
@@ -56,6 +63,11 @@ class Game:
         for move in moves:
             row, col = move
             pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
+
+    def draw_selected_piece_ring(self, row, col):
+        x = col * SQUARE_SIZE + SQUARE_SIZE // 2
+        y = row * SQUARE_SIZE + SQUARE_SIZE // 2
+        pygame.draw.circle(self.window, BROWN, (x, y), SQUARE_SIZE // 2 - 10, 6)
 
     def change_turn(self):
         self.valid_moves = {}
