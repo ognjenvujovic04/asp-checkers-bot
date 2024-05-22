@@ -2,6 +2,7 @@ import pygame
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, WHITE_PIECE
 from checkers.game import Game
 from checkers.menu import main_menu
+from bot.minimax import minimax
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -42,7 +43,12 @@ def main():
     winner = None
     while run:
         clock.tick(FPS)
-
+        
+        if game.turn == WHITE_PIECE:
+            value, new_board = minimax(game.get_board(), 4, True, float('-inf'), beta = float('inf'))
+            game.bot_move(new_board)
+            print("bot move eval: "+str(value))
+            
         if game.winner() is not None:
             winner = game.winner()
             display_winner(window, winner)

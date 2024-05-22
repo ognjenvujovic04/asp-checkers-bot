@@ -1,5 +1,5 @@
 import pygame
-from .constants import BLACK_PIECE, WHITE, BROWN, SQUARE_SIZE
+from checkers.constants import BLACK_PIECE, WHITE, BROWN, SQUARE_SIZE
 from checkers.board import Board
 
 class Game:
@@ -80,7 +80,6 @@ class Game:
     def get_board(self):
         return self.board
     
-    def bot_move(self):
-        eval, self.board = self.minimax(self.board, 3, True)[1]
+    def bot_move(self, board):
+        self.board = board
         self.change_turn()
-        return self.board
