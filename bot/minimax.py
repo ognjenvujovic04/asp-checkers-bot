@@ -9,11 +9,11 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         max_eval = float('-inf')
         best_move = None
         for move in get_possible_moves(board, WHITE_PIECE):
-            eval = minimax(move, depth - 1, False, alpha, beta)[0]
-            max_eval = max(max_eval, eval)
-            if max_eval == eval:
+            board_eval= minimax(move, depth - 1, False, alpha, beta)[0]
+            max_eval = max(max_eval, board_eval)
+            if max_eval == board_eval:
                 best_move = move
-            alpha = max(alpha, eval)
+            alpha = max(alpha, board_eval)
             if beta <= alpha:
                 break
         return max_eval, best_move
@@ -21,11 +21,11 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         min_eval = float('inf')
         best_move = None
         for move in get_possible_moves(board, BLACK_PIECE):
-            eval = minimax(move, depth - 1, True, alpha, beta)[0]
-            min_eval = min(min_eval, eval)
-            if min_eval == eval:
+            board_eval= minimax(move, depth - 1, True, alpha, beta)[0]
+            min_eval = min(min_eval, board_eval)
+            if min_eval == board_eval:
                 best_move = move
-            beta = min(beta, eval)
+            beta = min(beta, board_eval)
             if beta <= alpha:
                 break
         return min_eval, best_move

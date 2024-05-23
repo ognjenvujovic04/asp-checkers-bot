@@ -1,4 +1,5 @@
 import pygame
+import time
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, WHITE_PIECE
 from checkers.game import Game
 from checkers.menu import main_menu
@@ -45,9 +46,13 @@ def main():
         clock.tick(FPS)
         
         if game.turn == WHITE_PIECE:
-            value, new_board = minimax(game.get_board(), 4, True, float('-inf'), beta = float('inf'))
+            start_time = time.time()  # Record the start time
+            value, new_board = minimax(game.get_board(), 4, True, float('-inf'), float('inf'))
+            end_time = time.time()  # Record the end time
+
             game.bot_move(new_board)
-            print("bot move eval: "+str(value))
+            print("bot move eval: " + str(value))
+            print("Computation time: {:.2f} seconds".format(end_time - start_time))
             
         if game.winner() is not None:
             winner = game.winner()
