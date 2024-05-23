@@ -1,5 +1,5 @@
 import pygame
-from checkers.constants import BLACK_PIECE, WHITE, BROWN, SQUARE_SIZE
+from checkers.constants import BLACK_PIECE, WHITE_PIECE, BROWN, SQUARE_SIZE
 from checkers.board import Board
 
 class Game:
@@ -73,7 +73,7 @@ class Game:
     def change_turn(self):
         self.valid_moves = {}
         if self.turn == BLACK_PIECE:
-            self.turn = WHITE
+            self.turn = WHITE_PIECE
         else:
             self.turn = BLACK_PIECE
             

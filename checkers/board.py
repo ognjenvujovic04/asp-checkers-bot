@@ -2,24 +2,16 @@ import pygame
 from .square import Square
 from .constants import BLACK, ROWS, WHITE_PIECE, BLACK_PIECE, SQUARE_SIZE, COLS, WHITE
 from .piece import Piece
+from .position import Position
 
 class Board:
     def __init__(self):
         
-        self.pieces = [
-            [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
-            [Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY],
-            [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
-            [Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY],
-            [Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY],
-            [Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY],
-            [Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE],
-            [Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY]
-        ]
         #raspored figura
+        self.position = Position()
         
+        # crtanje tabele
         self.board = []
-        # crtanje tabel
         self.black_left = self.white_left = 12
         self.black_kings = self.white_kings = 0
         self.create_board()
@@ -31,9 +23,9 @@ class Board:
                 pygame.draw.rect(window, WHITE, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def move(self, piece, row, col):
+        self.position.pieces[piece.row][piece.col], self.position.pieces[row][col] = Square.EMPTY, piece.type
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
-
         if row == ROWS - 1 or row == 0:
             piece.make_king()
             if piece.color == WHITE:
@@ -69,6 +61,7 @@ class Board:
     def remove(self, pieces):
         for piece in pieces:
             self.board[piece.row][piece.col] = 0
+            self.position.pieces[piece.row][piece.col] = Square.EMPTY
             if piece != 0:
                 if piece.color == BLACK_PIECE:
                     self.black_left -= 1
