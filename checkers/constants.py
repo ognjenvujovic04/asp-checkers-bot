@@ -12,5 +12,5 @@ BLACK = (41,45,46)
 GREY = (128,128,128)
 BROWN = (106, 87, 10)
 
-CROWN = pygame.transform.scale(pygame.image.load('../assets/crown.png'), (44, 25))
+CROWN_PATH = "../assets/new_crown.png"
 LOGO_PATH = "../assets/checkers-logo.png" 

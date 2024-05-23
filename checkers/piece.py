@@ -1,4 +1,4 @@
-from .constants import SQUARE_SIZE, GREY, CROWN
+from .constants import SQUARE_SIZE, GREY, CROWN_PATH
 import pygame
 
 class Piece:
@@ -26,6 +26,8 @@ class Piece:
         pygame.draw.circle(window, GREY, (self.x, self.y), radius + self.OUTLINE)
         pygame.draw.circle(window, self.color, (self.x, self.y), radius)
         if self.king:
+            CROWN = pygame.transform.scale(pygame.image.load(CROWN_PATH).convert_alpha(), (44, 25))
+            CROWN.set_alpha(64)
             window.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
 
     def move(self, row, col):

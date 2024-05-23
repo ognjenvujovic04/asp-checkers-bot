@@ -5,6 +5,7 @@ from .piece import Piece
 
 class Board:
     def __init__(self):
+        
         self.pieces = [
             [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
             [Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY],
@@ -15,14 +16,10 @@ class Board:
             [Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE],
             [Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY]
         ]
-        # class Square(Enum):
-            # WHITE = 'W'
-            # BLACK = 'B'
-            # EMPTY = '-'
-            # WHITE_KING = 'WK'
-            # BLACK_KING = 'BK'
-    
+        #raspored figura
+        
         self.board = []
+        # crtanje tabel
         self.black_left = self.white_left = 12
         self.black_kings = self.white_kings = 0
         self.create_board()
