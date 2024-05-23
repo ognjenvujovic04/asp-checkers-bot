@@ -10,6 +10,7 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         best_move = None
         for move in get_possible_moves(board, WHITE_PIECE):
             board_eval= minimax(move, depth - 1, False, alpha, beta)[0]
+            print(board_eval)
             max_eval = max(max_eval, board_eval)
             if max_eval == board_eval:
                 best_move = move
@@ -31,9 +32,48 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         return min_eval, best_move
 
 def evaluate(board):
-    print (board.white_left - board.black_left)
-    return (board.white_left - board.black_left)
-
+    if board.winner() == WHITE_PIECE:
+        return float('inf')
+    elif board.winner() == BLACK_PIECE:
+        return float('-inf')
+    else:
+        white_score = [0, 0, 0, 0, 0]
+        black_score = [0, 0, 0, 0, 0]
+        for row in range(8):
+            for col in range(8):
+                piece = board.get_piece(col, row)
+                if piece != 0:
+                    if piece.color == WHITE_PIECE:
+                        if piece.king:
+                            white_score[1] += 1
+                        else:
+                            white_score[0] += 1
+                        if row == 7:
+                            white_score[2] += 1
+                        if row == 3 or row == 4:
+                            if 2 <= col <= 5:
+                                white_score[3] += 1
+                            else:
+                                white_score[4] += 1
+                    else:
+                        if piece.king:
+                            black_score[1] += 1
+                        else:
+                            black_score[0] += 1
+                        if row == 0:
+                            black_score[2] += 1
+                        if row == 3 or row == 4:
+                            if 2 <= col <= 5:
+                                black_score[3] += 1
+                            else:
+                                black_score[4] += 1
+                                
+        weights = [5, 7.5, 4, 2.5, 0.5]
+        score = 0
+        for i in range(len(weights)):
+            score += weights[i] * (black_score[i] - white_score[i])
+        return score           
+        
 def simulate_move(piece, move, board, skip):
     board.move(piece, move[0], move[1])
     if skip:

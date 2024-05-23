@@ -47,7 +47,7 @@ def main():
         
         if game.turn == WHITE_PIECE:
             start_time = time.time()  # Record the start time
-            value, new_board = minimax(game.get_board(), 4, True, float('-inf'), float('inf'))
+            value, new_board = minimax(game.get_board(), 5, True, float('-inf'), float('inf'))
             end_time = time.time()  # Record the end time
 
             game.bot_move(new_board)
