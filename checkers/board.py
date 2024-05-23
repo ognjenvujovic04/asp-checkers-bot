@@ -4,6 +4,7 @@ from .piece import Piece
 
 class Board:
     def __init__(self):
+        #just testing
         self.board = []
         self.black_left = self.white_left = 12
         self.black_kings = self.white_kings = 0
