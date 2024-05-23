@@ -1,10 +1,27 @@
 import pygame
+from .square import Square
 from .constants import BLACK, ROWS, WHITE_PIECE, BLACK_PIECE, SQUARE_SIZE, COLS, WHITE
 from .piece import Piece
 
 class Board:
     def __init__(self):
-        #just testing
+        self.pieces = [
+            [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
+            [Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY],
+            [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
+            [Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY],
+            [Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY, Square.EMPTY],
+            [Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY],
+            [Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE],
+            [Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY, Square.WHITE_PIECE, Square.EMPTY]
+        ]
+        # class Square(Enum):
+            # WHITE = 'W'
+            # BLACK = 'B'
+            # EMPTY = '-'
+            # WHITE_KING = 'WK'
+            # BLACK_KING = 'BK'
+    
         self.board = []
         self.black_left = self.white_left = 12
         self.black_kings = self.white_kings = 0
