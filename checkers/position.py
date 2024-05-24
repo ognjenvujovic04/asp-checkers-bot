@@ -13,6 +13,16 @@ class Position:
             [Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE],
             [Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY, Square.BLACK_PIECE, Square.EMPTY]
         ]
+        self.black_left = self.white_left = 12
+        self.black_kings = self.white_kings = 0
+        
+    def winner(self):
+        if self.black_left == 0:
+            return Square.WHITE_PIECE
+        elif self.white_left == 0:
+            return Square.BLACK_PIECE
+        return None
+        
 
 
     # pisem fukciju za validne poteze koja ce koristiti rijecnjik sa kljucem touple (x1,y1,x2,y2) gde je x1,y1 pocetna pozicija a x2,y2 krajnja pozicija
@@ -20,7 +30,7 @@ class Position:
     
     #funkcija vraca rijecnjik sa validnim potezima i 0 ako nije bilo skakanja i 1 ako je bilo skakanja
     
-    def get_valid_moves_position(self, row, col, mode):
+    def get_valid_moves(self, row, col, mode):
         moves = {}
         type = self.pieces[row][col]
         if type == Square.WHITE_PIECE:

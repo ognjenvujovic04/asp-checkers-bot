@@ -28,7 +28,7 @@ def display_winner(screen, winner):
     pygame.display.update()
 
 def main():    
-    mode = main_menu() # 0 for jumping optional, 1 for jumping mandatory
+    mode = main_menu() # 0 za opciono, 1 za obazvezno preskakanje
     
     pygame.init()
     FPS = 60
@@ -45,14 +45,14 @@ def main():
     while run:
         clock.tick(FPS)
         
-        # if game.turn == WHITE_PIECE:
-        #     start_time = time.time()  # Record the start time
-        #     value, new_board = minimax(game.get_board(), 4, True, float('-inf'), float('inf'))
-        #     end_time = time.time()  # Record the end time
+        if game.turn == WHITE_PIECE:
+            start_time = time.time()  # Record the start time
+            value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), 0)
+            end_time = time.time()  # Record the end time
 
-        #     game.bot_move(new_board)
-        #     print("bot move eval: " + str(value))
-        #     print("Computation time: {:.2f} seconds".format(end_time - start_time))
+            game.bot_move(new_position)
+            print("bot move eval: " + str(value))
+            print("Computation time: {:.2f} seconds".format(end_time - start_time))
             
         if game.winner() is not None:
             winner = game.winner()

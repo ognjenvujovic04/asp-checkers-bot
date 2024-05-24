@@ -31,8 +31,10 @@ class Board:
             self.position.pieces[row][col] = Square.WHITE_KING if piece.color == WHITE_PIECE else Square.BLACK_KING
             if piece.color == WHITE:
                 self.white_kings += 1
+                self.position.white_kings += 1
             else:
                 self.black_kings += 1 
+                self.position.black_kings += 1
 
     def get_piece(self, row, col):
         return self.board[row][col]
@@ -67,8 +69,10 @@ class Board:
             if piece != 0:
                 if piece.color == BLACK_PIECE:
                     self.black_left -= 1
+                    self.position.black_left -= 1
                 else:
                     self.white_left -= 1
+                    self.position.white_left -= 1
     
     def winner(self):
         if self.black_left <= 0:
@@ -85,3 +89,55 @@ class Board:
                 if piece != 0 and piece.color == color:
                     pieces.append(piece)
         return pieces
+        
+    
+    
+    def update_board(self, position):
+        black_kings = white_kings = 0
+        self.position = position
+        for row in range(8):
+            for col in range(8):
+                if position.pieces[row][col] == Square.WHITE_KING:
+                    white_kings += 1
+                elif position.pieces[row][col] == Square.BLACK_KING:
+                    black_kings += 1
+                if self.board[row][col] != 0:
+                    if self.position.pieces[row][col] != self.board[row][col].type:
+                        if self.position.pieces[row][col] != Square.EMPTY:
+                            if self.position.pieces[row][col] == Square.WHITE_KING:
+                                self.board[row][col] = Piece(row, col, WHITE_PIECE)
+                                self.board[row][col].make_king()
+                            elif self.position.pieces[row][col] == Square.BLACK_KING:
+                                self.board[row][col] = Piece(row, col, BLACK_PIECE)
+                                self.board[row][col].make_king()
+                            else:
+                                self.board[row][col] = Piece(row, col, get_color(self.position.pieces[row][col]))
+                        else:
+                            self.board[row][col] = 0
+                elif self.position.pieces[row][col] != Square.EMPTY:
+                    if self.position.pieces[row][col] == Square.WHITE_KING:
+                        self.board[row][col] = Piece(row, col, WHITE_PIECE)
+                        self.board[row][col].make_king()
+                    elif self.position.pieces[row][col] == Square.BLACK_KING:
+                        self.board[row][col] = Piece(row, col, BLACK_PIECE)
+                        self.board[row][col].make_king()
+                    else:
+                        self.board[row][col] = Piece(row, col, get_color(self.position.pieces[row][col]))
+                    
+        self.black_kings = black_kings
+        self.position.black_kings = black_kings
+        self.white_kings = white_kings
+        self.position.white_kings = white_kings
+        self.black_left = position.black_left
+        self.position.black_left = position.black_left
+        self.white_left = position.white_left
+        self.position.white_left = position.white_left
+        
+        return self
+    
+def get_color(square):
+        if square == Square.WHITE_PIECE or square == Square.WHITE_KING:
+            return WHITE_PIECE
+        elif square == Square.BLACK_PIECE or square == Square.BLACK_KING:
+            return BLACK_PIECE
+        return 0

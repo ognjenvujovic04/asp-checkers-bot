@@ -42,7 +42,7 @@ class Game:
             self.selected = piece
             self.selected_row = row
             self.selected_col = col
-            self.valid_moves = self.board.position.get_valid_moves_position(row, col, self.mode)[0]
+            self.valid_moves = self.board.position.get_valid_moves(row, col, self.mode)[0]
             return True
             
         return False
@@ -103,13 +103,13 @@ class Game:
             self.turn = BLACK_PIECE
         self.possible_jumps = False
         for piece in self.board.get_all_pieces(self.turn):
-            if self.board.position.get_valid_moves_position(piece.row, piece.col, self.mode)[1] == 1:
+            if self.board.position.get_valid_moves(piece.row, piece.col, self.mode)[1] == 1:
                 self.possible_jumps = True
                 break
             
     def get_board(self):
         return self.board
     
-    def bot_move(self, board):
-        self.board = board
+    def bot_move(self, new_position):
+        self.board = self.board.update_board(new_position)
         self.change_turn()
