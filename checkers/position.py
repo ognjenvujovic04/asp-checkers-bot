@@ -1,4 +1,4 @@
-from checkers.square import Square
+from square import Square
 
 
 class Position:
@@ -142,4 +142,5 @@ class Position:
                  
         return moves,0
     
-    
+    def position_to_string(self):
+        return "".join(str(self.pieces[row][col].value) for row in range(len(self.pieces)) for col in range(len(self.pieces[row])) if (row + col) % 2 == 1)
