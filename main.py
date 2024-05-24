@@ -38,7 +38,7 @@ def main():
 
     clock = pygame.time.Clock()
 
-    game = Game(window)
+    game = Game(window, mode)
 
     run = True
     winner = None
