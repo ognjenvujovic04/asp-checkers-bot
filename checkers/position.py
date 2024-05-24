@@ -21,6 +21,21 @@ class Position:
             return Square.WHITE_PIECE
         elif self.white_left == 0:
             return Square.BLACK_PIECE
+        else:
+            move_counter_white = 0
+            move_counter_black = 0
+            for row in range(8):
+                for col in range(8):
+                    if self.pieces[row][col] == Square.WHITE_PIECE or self.pieces[row][col] == Square.WHITE_KING:
+                        if len(self.get_valid_moves(row, col, 0)[0]) != 0:
+                            move_counter_white += 1
+                    if self.pieces[row][col] == Square.BLACK_PIECE or self.pieces[row][col] == Square.BLACK_KING:
+                        if len(self.get_valid_moves(row, col, 0)[0]) != 0:
+                            move_counter_black += 1
+            if move_counter_black == 0:
+                return Square.WHITE_PIECE
+            elif move_counter_white == 0:
+                return Square.BLACK_PIECE
         return None
         
 

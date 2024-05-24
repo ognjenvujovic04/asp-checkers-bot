@@ -46,9 +46,9 @@ def main():
         clock.tick(FPS)
         
         if game.turn == WHITE_PIECE:
-            start_time = time.time()  # Record the start time
+            start_time = time.time()  
             value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), game.mode)
-            end_time = time.time()  # Record the end time
+            end_time = time.time() 
 
             game.bot_move(new_position)
             print("bot move eval: " + str(value))
@@ -57,7 +57,7 @@ def main():
         if game.winner() is not None:
             winner = game.winner()
             display_winner(window, winner)
-            pygame.time.delay(5000)  # Delay for 5 seconds
+            pygame.time.delay(5000) 
             run = False
             
         for event in pygame.event.get():
