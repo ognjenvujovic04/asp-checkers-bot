@@ -59,7 +59,8 @@ class Board:
                     piece.draw(window)
 
     def remove(self, pieces):
-        for piece in pieces:
+        for cordinates in pieces:
+            piece = self.board[cordinates[0]][cordinates[1]]
             self.board[piece.row][piece.col] = 0
             self.position.pieces[piece.row][piece.col] = Square.EMPTY
             if piece != 0:

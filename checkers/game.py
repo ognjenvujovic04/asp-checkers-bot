@@ -30,7 +30,7 @@ class Game:
 
     def select(self, row, col):
         if self.selected:
-            result = self._move(row, col)
+            result = self._move(self.selected_row, self.selected_col, row, col)
             if not result:
                 self.selected = None
                 self.select(row, col)
@@ -40,21 +40,23 @@ class Game:
             self.selected = piece
             self.selected_row = row
             self.selected_col = col
-            self.valid_moves = self.board.get_valid_moves(piece)
+            self.valid_moves = self.board.position.get_valid_moves_position(row, col)
             return True
             
         return False
 
-    def _move(self, row, col):
+    def _move(self, start_row, end_row, row, col):
         piece = self.board.get_piece(row, col)
-        if self.selected and piece == 0 and (row, col) in self.valid_moves:
-            self.board.move(self.selected, row, col)
-            skipped = self.valid_moves[(row, col)]
-            if skipped:
-                self.board.remove(skipped)
-            self.selected = None
-            self.valid_moves = {}
-            self.change_turn()
+        if self.selected and piece == 0:
+            for move in self.valid_moves:
+                if row == move[2] and col == move[3]:
+                    self.board.move(self.selected, row, col)
+                    skipped = self.valid_moves[(start_row, end_row, row, col)]
+                    if skipped:
+                        self.board.remove(skipped)
+                    self.selected = None
+                    self.valid_moves = {}
+                    self.change_turn()
         else:
             return False
 
@@ -62,7 +64,7 @@ class Game:
 
     def draw_valid_moves(self, moves):
         for move in moves:
-            row, col = move
+            start_row, start_col, row, col = move
             pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
 
     def draw_selected_piece_ring(self, row, col):
