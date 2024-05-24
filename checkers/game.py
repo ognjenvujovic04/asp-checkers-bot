@@ -59,14 +59,14 @@ class Game:
                     self.selected = None
                     self.change_turn()
                 elif row == move[2] and col == move[3] and self.mode == 1:
-                    if self.possible_jumps == False:
+                    if self.possible_jumps == True and len(self.valid_moves[move]) != 0:
                         self.board.move(self.selected, row, col)
                         skipped = self.valid_moves[(start_row, end_row, row, col)]
                         if skipped:
                             self.board.remove(skipped)
                         self.selected = None
                         self.change_turn()
-                    elif len(self.valid_moves[move]) != 0:
+                    elif self.possible_jumps == False:
                         self.board.move(self.selected, row, col)
                         skipped = self.valid_moves[(start_row, end_row, row, col)]
                         if skipped:
@@ -80,8 +80,15 @@ class Game:
 
     def draw_valid_moves(self, moves):
         for move in moves:
-            start_row, start_col, row, col = move
-            pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
+            if self.mode == 0:
+                start_row, start_col, row, col = move
+                pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
+            elif self.possible_jumps == True and len(moves[move]) != 0:
+                start_row, start_col, row, col = move
+                pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
+            elif self.possible_jumps == False:
+                start_row, start_col, row, col = move
+                pygame.draw.circle(self.window, BROWN, (col * SQUARE_SIZE + SQUARE_SIZE//2, row * SQUARE_SIZE + SQUARE_SIZE//2), 20)
 
     def draw_selected_piece_ring(self, row, col):
         x = col * SQUARE_SIZE + SQUARE_SIZE // 2
