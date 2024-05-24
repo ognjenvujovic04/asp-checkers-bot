@@ -58,8 +58,9 @@ def main():
         clock.tick(FPS)
 
         if game.turn == WHITE_PIECE:
+            depth = calculate_depth(game.get_board().position)
             start_time = time.time()
-            value, new_position = minimax(game.get_board().position, 6, True, float('-inf'), float('inf'), game.mode, transposition_table)
+            value, new_position = minimax(game.get_board().position, depth, True, float('-inf'), float('inf'), game.mode, transposition_table)
             
             end_time = time.time()
 
