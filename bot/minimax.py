@@ -38,7 +38,6 @@ def minimax(position, depth, maximizing_player, alpha, beta, mode):
         return min_eval, best_move
 
 def evaluate(position):
-    print ((position.white_left - position.black_left) + (position.white_kings - position.black_kings)*0.5)
     return (position.white_left - position.black_left) + (position.white_kings - position.black_kings)*0.5
 
 def simulate_move(move, position, skip):

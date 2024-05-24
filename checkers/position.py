@@ -91,9 +91,9 @@ class Position:
                 moves[(row, col, row - 1, col + 1)] = []
             
             #backward regular moves
-            if row + 1 >= 0 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
+            if row + 1 < 8 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col - 1)] = []
-            if row + 1 >= 0 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
+            if row + 1 < 8 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col + 1)] = []
             
         elif type == Square.WHITE_KING:
