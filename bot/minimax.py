@@ -17,9 +17,9 @@ def minimax(position, depth, maximizing_player, alpha, beta, mode):
             max_eval = max(max_eval, position_eval)
             if max_eval == position_eval:
                 best_move = move
-            # alpha = max(alpha, position_eval)
-            # if beta <= alpha:
-            #     break
+            alpha = max(alpha, position_eval)
+            if beta < alpha:
+                break
         return max_eval, best_move
     else:
         min_eval = float('inf')
@@ -32,9 +32,9 @@ def minimax(position, depth, maximizing_player, alpha, beta, mode):
             min_eval = min(min_eval, position_eval)
             if min_eval == position_eval:
                 best_move = move
-            # beta = min(beta, position_eval)
-            # if beta <= alpha:
-            #     break
+            beta = min(beta, position_eval)
+            if beta < alpha:
+                break
         return min_eval, best_move
 
 def evaluate(position):

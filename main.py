@@ -38,7 +38,7 @@ def main():
 
     clock = pygame.time.Clock()
 
-    game = Game(window, mode)
+    game = Game(window, 0)
 
     run = True
     winner = None
@@ -47,7 +47,7 @@ def main():
         
         if game.turn == WHITE_PIECE:
             start_time = time.time()  # Record the start time
-            value, new_position = minimax(game.get_board().position, 4, True, float('-inf'), float('inf'), 0)
+            value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), game.mode)
             end_time = time.time()  # Record the end time
 
             game.bot_move(new_position)
