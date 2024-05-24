@@ -1,4 +1,5 @@
 from checkers.square import Square
+from checkers.constants import WHITE_PIECE, BLACK_PIECE
 
 
 class Position:
@@ -17,10 +18,10 @@ class Position:
         self.black_kings = self.white_kings = 0
         
     def winner(self):
-        if self.black_left == 0:
-            return Square.WHITE_PIECE
-        elif self.white_left == 0:
-            return Square.BLACK_PIECE
+        if self.black_left == 0 and self.black_kings == 0:
+            return WHITE_PIECE
+        elif self.white_left == 0 and self.white_kings == 0:
+            return BLACK_PIECE
         else:
             move_counter_white = 0
             move_counter_black = 0
@@ -33,9 +34,9 @@ class Position:
                         if len(self.get_valid_moves(row, col, 0)[0]) != 0:
                             move_counter_black += 1
             if move_counter_black == 0:
-                return Square.WHITE_PIECE
+                return WHITE_PIECE
             elif move_counter_white == 0:
-                return Square.BLACK_PIECE
+                return BLACK_PIECE
         return None
         
     def position_to_string(self):

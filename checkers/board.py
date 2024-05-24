@@ -75,11 +75,8 @@ class Board:
                     self.position.white_left -= 1
     
     def winner(self):
-        if self.black_left <= 0:
-            return WHITE_PIECE
-        elif self.white_left <= 0:
-            return BLACK_PIECE
-        
+        if self.position.winner() != None:
+            return self.position.winner()
         return None 
     
     def get_all_pieces(self, color):

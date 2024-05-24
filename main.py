@@ -11,6 +11,15 @@ def get_row_col_from_mouse(pos):
     col = x // SQUARE_SIZE
     return row, col
 
+def calculate_depth(position):
+    num_figures = position.white_left + position.white_kings + position.black_left + position.black_kings
+    thresholds = [10, 6, 3]  
+    depths = [6, 7, 8]         
+    for threshold, depth in zip(thresholds, depths):
+        if num_figures >= threshold:
+            return depth
+    return 9
+
 def display_winner(screen, winner):
     if winner == WHITE_PIECE:
         winner_name = "White"
@@ -50,7 +59,8 @@ def main():
 
         if game.turn == WHITE_PIECE:
             start_time = time.time()
-            value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), game.mode, transposition_table)
+            value, new_position = minimax(game.get_board().position, 6, True, float('-inf'), float('inf'), game.mode, transposition_table)
+            
             end_time = time.time()
 
             game.bot_move(new_position)

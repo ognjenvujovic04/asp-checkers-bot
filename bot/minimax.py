@@ -3,9 +3,9 @@ from checkers.constants import WHITE_PIECE, BLACK_PIECE
 from checkers.square import Square
 
 def minimax(position, depth, maximizing_player, alpha, beta, mode, transposition_table):
-    position_str = position.position_to_string()  # Function to convert the position to a string for dictionary keys
+    position_str = position.position_to_string()
 
-    if position_str in transposition_table:
+    if position_str in transposition_table and transposition_table[position_str][1].position_to_string() != position.position_to_string():
         return transposition_table[position_str]
 
     if depth == 0 or position.winner() is not None:
@@ -154,14 +154,3 @@ def get_possible_positions(position, color, mode):
                     postions.append(new_position)
     
     return postions
-
-# def find_next_move(self, board):
-#     best_move = None
-    
-#     for square in board.position.pieces:
-#         if square.value % 2 != 0 and self.turn == WHITE_PIECE:
-#             valid_moves = board.position.get_valid_moves(square.row, square.col, self.mode)
-#             for move, skip in valid_moves.items():
-#                 temp_position = deepcopy(board)
-#                 new_position = simulate_move(move, temp_position, skip)
-#                 postions.append(new_position)
