@@ -122,6 +122,12 @@ class Board:
                         self.board[row][col] = Piece(row, col, BLACK_PIECE)
                         self.board[row][col].make_king()
                     else:
+                        if row == 7 and self.position.pieces[row][col] == Square.BLACK_PIECE:
+                            self.board[row][col] = Piece(row, col, WHITE_PIECE)
+                            self.board[row][col].make_king()
+                        if row == 0 and self.position.pieces[row][col] == Square.WHITE_PIECE:
+                            self.board[row][col] = Piece(row, col, BLACK_PIECE)
+                            self.board[row][col].make_king()
                         self.board[row][col] = Piece(row, col, get_color(self.position.pieces[row][col]))
                     
         self.black_kings = black_kings
