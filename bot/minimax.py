@@ -38,7 +38,69 @@ def minimax(position, depth, maximizing_player, alpha, beta, mode):
         return min_eval, best_move
 
 def evaluate(position):
-    return (position.white_left - position.black_left) + (position.white_kings - position.black_kings)*0.5
+    white_score = [0, 0, 0, 0, 0, 0, 0]
+    blacke_score = [0, 0, 0, 0, 0, 0, 0]
+    white_score[0] = position.white_left - position.white_kings
+    blacke_score[0] = position.black_left - position.black_kings
+    white_score[1] = position.white_kings
+    blacke_score[1] = position.black_kings
+    for row in range(8):
+        for col in range(8):
+            square = position.pieces[row][col]
+            if square.value == 0:
+                continue
+            if square.value % 2 == 0: # black
+                if row == 7: #zadnji red
+                    blacke_score[2] += 1
+                    blacke_score[6] += 1 
+                if row == 3 or row == 4: #sredina
+                    if 2 <= col <= 5:
+                        blacke_score[3] += 1
+                    else:
+                        blacke_score[4] += 1
+                if 7 > row > 0 and 0 < col < 7: #ugrozene crne figure
+                    if (position.pieces[row - 1][col - 1] == Square.WHITE_PIECE or position.pieces[row - 1][col - 1] == Square.WHITE_KING) \
+                    and position.pieces[row + 1][col + 1] == Square.EMPTY:
+                        blacke_score[5] += 1
+                    if (position.pieces[row - 1][col + 1] == Square.WHITE_PIECE or position.pieces[row - 1][col + 1] == Square.WHITE_KING) \
+                    and position.pieces[row + 1][col - 1] == Square.EMPTY:
+                        blacke_score[5] += 1
+                if row < 7:
+                    if col == 0 or col == 7:
+                        blacke_score[6] += 1
+                    elif (position.pieces[row + 1][col - 1] == Square.BLACK_PIECE or position.pieces[row + 1][col - 1] == Square.BLACK_KING\
+                    or position.pieces[row + 1][col - 1] == Square.WHITE_PIECE) and (position.pieces[row + 1][col + 1] == Square.BLACK_PIECE\
+                    or position.pieces[row + 1][col + 1] == Square.BLACK_KING or position.pieces[row + 1][col + 1] == Square.WHITE_PIECE):
+                        blacke_score[6] += 1  
+            else: # white
+                if row == 0: #zadnji red
+                    white_score[2] += 1
+                    white_score[6] += 1
+                if row == 3 or row == 4: #sredina
+                    if 2 <= col <= 5:
+                        white_score[3] += 1
+                    else:
+                        white_score[4] += 1
+                if 0 < row < 7 and 0 < col < 7: #ugrozene bele figure
+                    if (position.pieces[row + 1][col - 1] == Square.BLACK_PIECE or position.pieces[row + 1][col - 1] == Square.BLACK_KING) \
+                    and position.pieces[row - 1][col + 1] == Square.EMPTY:
+                        white_score[5] += 1
+                    if (position.pieces[row + 1][col + 1] == Square.BLACK_PIECE or position.pieces[row + 1][col + 1] == Square.BLACK_KING) \
+                    and position.pieces[row - 1][col - 1] == Square.EMPTY:
+                        white_score[5] += 1
+                if row > 0:
+                    if col == 0 or col == 7:
+                        white_score[6] += 1
+                    elif (position.pieces[row - 1][col - 1] == Square.WHITE_PIECE or position.pieces[row - 1][col - 1] == Square.WHITE_KING\
+                    or position.pieces[row - 1][col - 1] == Square.BLACK_PIECE) and (position.pieces[row - 1][col + 1] == Square.WHITE_PIECE\
+                    or position.pieces[row - 1][col + 1] == Square.WHITE_KING or position.pieces[row - 1][col + 1] == Square.BLACK_PIECE):
+                        white_score[6] += 1
+    weights = [5, 7.75, 4, 2.5, 0.5, -3, 3]
+    eval_score = 0
+    for i in range(7):
+        eval_score += weights[i] * (white_score[i] - blacke_score[i])
+    #print(eval_score)
+    return eval_score
 
 def simulate_move(move, position, skip):
     position.pieces[move[2]][move[3]], position.pieces[move[0]][move[1]]  = position.pieces[move[0]][move[1]], position.pieces[move[2]][move[3]]
