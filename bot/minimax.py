@@ -2,39 +2,48 @@ from copy import deepcopy
 from checkers.constants import WHITE_PIECE, BLACK_PIECE
 from checkers.square import Square
 
-def minimax(position, depth, maximizing_player, alpha, beta, mode):
+def minimax(position, depth, maximizing_player, alpha, beta, mode, transposition_table):
+    position_str = position.position_to_string()  # Function to convert the position to a string for dictionary keys
+
+    if position_str in transposition_table:
+        return transposition_table[position_str]
+
     if depth == 0 or position.winner() is not None:
-        return evaluate(position), position
+        evaluation = evaluate(position)
+        transposition_table[position_str] = (evaluation, position)
+        return evaluation, position
 
     if maximizing_player:
         max_eval = float('-inf')
         best_move = None
-        possible_possitions = get_possible_positions(position, WHITE_PIECE, mode)
-        if len(possible_possitions) == 0:
+        possible_positions = get_possible_positions(position, WHITE_PIECE, mode)
+        if len(possible_positions) == 0:
             return -1000, None
-        for move in possible_possitions:
-            position_eval= minimax(move, depth - 1, False, alpha, beta, mode)[0]
+        for move in possible_positions:
+            position_eval = minimax(move, depth - 1, False, alpha, beta, mode, transposition_table)[0]
             max_eval = max(max_eval, position_eval)
             if max_eval == position_eval:
                 best_move = move
             alpha = max(alpha, position_eval)
             if beta < alpha:
                 break
+        transposition_table[position_str] = (max_eval, best_move)
         return max_eval, best_move
     else:
         min_eval = float('inf')
         best_move = None
-        possible_possitions = get_possible_positions(position, BLACK_PIECE, mode)
-        if len(possible_possitions) == 0:
-            return -1000, None
-        for move in possible_possitions:
-            position_eval= minimax(move, depth - 1, True, alpha, beta, mode)[0]
+        possible_positions = get_possible_positions(position, BLACK_PIECE, mode)
+        if len(possible_positions) == 0:
+            return 1000, None
+        for move in possible_positions:
+            position_eval = minimax(move, depth - 1, True, alpha, beta, mode, transposition_table)[0]
             min_eval = min(min_eval, position_eval)
             if min_eval == position_eval:
                 best_move = move
             beta = min(beta, position_eval)
             if beta < alpha:
                 break
+        transposition_table[position_str] = (min_eval, best_move)
         return min_eval, best_move
 
 def evaluate(position):

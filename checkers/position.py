@@ -1,4 +1,4 @@
-from square import Square
+from checkers.square import Square
 
 
 class Position:
@@ -38,6 +38,8 @@ class Position:
                 return Square.BLACK_PIECE
         return None
         
+    def position_to_string(self):
+        return "".join(str(self.pieces[row][col].value) for row in range(len(self.pieces)) for col in range(len(self.pieces[row])) if (row + col) % 2 == 1)
 
 
     # pisem fukciju za validne poteze koja ce koristiti rijecnjik sa kljucem touple (x1,y1,x2,y2) gde je x1,y1 pocetna pozicija a x2,y2 krajnja pozicija
@@ -142,5 +144,4 @@ class Position:
                  
         return moves,0
     
-    def position_to_string(self):
-        return "".join(str(self.pieces[row][col].value) for row in range(len(self.pieces)) for col in range(len(self.pieces[row])) if (row + col) % 2 == 1)
+    

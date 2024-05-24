@@ -27,50 +27,53 @@ def display_winner(screen, winner):
     screen.blit(text, text_rect)
     pygame.display.update()
 
-def main():    
-    mode = main_menu() # 0 za opciono, 1 za obazvezno preskakanje
-    
+def main():
+    mode = main_menu()  # 0 for optional, 1 for mandatory skipping
+
     pygame.init()
     FPS = 60
-    
+
     window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('Checkers')
 
     clock = pygame.time.Clock()
 
-    game = Game(window, 0)
+    game = Game(window, mode)
 
     run = True
     winner = None
+
+    transposition_table = {}
+
     while run:
         clock.tick(FPS)
-        
+
         if game.turn == WHITE_PIECE:
-            start_time = time.time()  
-            value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), game.mode)
-            end_time = time.time() 
+            start_time = time.time()
+            value, new_position = minimax(game.get_board().position, 5, True, float('-inf'), float('inf'), game.mode, transposition_table)
+            end_time = time.time()
 
             game.bot_move(new_position)
-            print("bot move eval: " + str(value))
+            print("Bot move eval: " + str(value))
             print("Computation time: {:.2f} seconds".format(end_time - start_time))
-            
+
         if game.winner() is not None:
             winner = game.winner()
             display_winner(window, winner)
-            pygame.time.delay(5000) 
+            pygame.time.delay(5000)
             run = False
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            
+                
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 game.select(row, col)
 
         game.update()
-    
+        
     pygame.quit()
 
 if __name__ == "__main__":
