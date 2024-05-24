@@ -14,9 +14,9 @@ def minimax(board, depth, maximizing_player, alpha, beta):
             best_eval = max(best_eval, board_eval)
             if best_eval == board_eval:
                 best_move = move
-            # alpha = max(alpha, best_eval)
-            # if beta <= alpha:
-            #    break
+            alpha = max(alpha, best_eval)
+            if beta < alpha:
+               break
         return best_eval, best_move
     else:
         best_eval = float('inf')
@@ -26,9 +26,9 @@ def minimax(board, depth, maximizing_player, alpha, beta):
             best_eval = min(best_eval, board_eval)
             if best_eval == board_eval:
                 best_move = move
-            # beta = min(beta, best_eval)
-            # if beta <= alpha:
-            #     break
+            beta = min(beta, best_eval)
+            if beta < alpha:
+                break
         return best_eval, best_move
 
 def evaluate(board):
