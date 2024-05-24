@@ -38,22 +38,22 @@ def minimax(position, depth, maximizing_player, alpha, beta, mode):
         return min_eval, best_move
 
 def evaluate(position):
-    print ((position.white_left - position.black_left) - (position.white_kings - position.black_kings)*0.5)
-    return (position.white_left - position.black_left) - (position.white_kings - position.black_kings)*0.5
+    print ((position.white_left - position.black_left) + (position.white_kings - position.black_kings)*0.5)
+    return (position.white_left - position.black_left) + (position.white_kings - position.black_kings)*0.5
 
 def simulate_move(move, position, skip):
     position.pieces[move[2]][move[3]], position.pieces[move[0]][move[1]]  = position.pieces[move[0]][move[1]], position.pieces[move[2]][move[3]]
-    if position.pieces[move[2]][move[3]] == BLACK_PIECE and move[2] == 7:
+    if position.pieces[move[2]][move[3]] == Square.BLACK_PIECE and move[2] == 0:
         position.pieces[move[2]][move[3]] = Square.BLACK_KING
         position.black_kings += 1
-    elif position.pieces[move[2]][move[3]] == WHITE_PIECE and move[2] == 0:
+    elif position.pieces[move[2]][move[3]] == Square.WHITE_PIECE and move[2] == 7:
         position.pieces[move[2]][move[3]] = Square.WHITE_KING
         position.white_kings += 1
     if skip:
         skip = skip[0]
-        if position.pieces[skip[0]][skip[1]] == BLACK_PIECE:
+        if position.pieces[skip[0]][skip[1]] == Square.BLACK_PIECE:
             position.black_left -= 1
-        elif position.pieces[skip[0]][skip[1]] == WHITE_PIECE:
+        elif position.pieces[skip[0]][skip[1]] == Square.WHITE_PIECE:
             position.white_left -= 1
         elif position.pieces[skip[0]][skip[1]] == Square.BLACK_KING:
             position.black_left -= 1
