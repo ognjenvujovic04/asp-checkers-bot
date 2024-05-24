@@ -25,15 +25,15 @@ class Position:
         print(type)
         if type == Square.WHITE_PIECE:
             #regular moves
-            if row + 1 >= 0 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
+            if row + 1 < 8 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col - 1)] = []
-            if row + 1 >= 0 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
+            if row + 1 < 8 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col + 1)] = []
             
             #jump moves
-            if row + 2 <= 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.BLACK_PIECE or self.pieces[row + 1][col - 1] == Square.BLACK_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
+            if row + 2 < 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.BLACK_PIECE or self.pieces[row + 1][col - 1] == Square.BLACK_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col - 2)] = [(row + 1, col - 1)]
-            if row + 2 <= 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.BLACK_PIECE or self.pieces[row + 1][col + 1] == Square.BLACK_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
+            if row + 2 < 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.BLACK_PIECE or self.pieces[row + 1][col + 1] == Square.BLACK_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col + 2)] = [(row + 1, col + 1)]
                 
         elif type == Square.BLACK_PIECE:
@@ -69,22 +69,22 @@ class Position:
                 moves[(row, col, row + 1, col + 1)] = []
             
             #backward jump moves
-            if row + 2 <= 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.WHITE_PIECE or self.pieces[row + 1][col - 1] == Square.WHITE_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
+            if row + 2 < 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.WHITE_PIECE or self.pieces[row + 1][col - 1] == Square.WHITE_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col - 2)] = [(row + 1, col - 1)]
-            if row + 2 <= 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.WHITE_PIECE or self.pieces[row + 1][col + 1] == Square.WHITE_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
+            if row + 2 < 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.WHITE_PIECE or self.pieces[row + 1][col + 1] == Square.WHITE_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col + 2)] = [(row + 1, col + 1)]
                 
         elif type == Square.WHITE_KING:
             #regular moves
-            if row + 1 >= 0 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
+            if row + 1 < 8 and col - 1 >= 0 and self.pieces[row + 1][col - 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col - 1)] = []
-            if row + 1 >= 0 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
+            if row + 1 < 8 and col + 1 < 8 and self.pieces[row + 1][col + 1] == Square.EMPTY:
                 moves[(row, col, row + 1, col + 1)] = []
             
             #jump moves
-            if row + 2 <= 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.BLACK_PIECE or self.pieces[row + 1][col - 1] == Square.BLACK_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
+            if row + 2 < 8 and col - 2 >= 0 and (self.pieces[row + 1][col - 1] == Square.BLACK_PIECE or self.pieces[row + 1][col - 1] == Square.BLACK_KING) and self.pieces[row + 2][col - 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col - 2)] = [(row + 1, col - 1)]
-            if row + 2 <= 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.BLACK_PIECE or self.pieces[row + 1][col + 1] == Square.BLACK_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
+            if row + 2 < 8 and col + 2 < 8 and (self.pieces[row + 1][col + 1] == Square.BLACK_PIECE or self.pieces[row + 1][col + 1] == Square.BLACK_KING) and self.pieces[row + 2][col + 2] == Square.EMPTY:
                 moves[(row, col, row + 2, col + 2)] = [(row + 1, col + 1)]
             
             #backward regular moves

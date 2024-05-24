@@ -28,6 +28,7 @@ class Board:
         piece.move(row, col)
         if row == ROWS - 1 or row == 0:
             piece.make_king()
+            self.position.pieces[row][col] = Square.WHITE_KING if piece.color == WHITE_PIECE else Square.BLACK_KING
             if piece.color == WHITE:
                 self.white_kings += 1
             else:
