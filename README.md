@@ -45,14 +45,16 @@ The heuristic function considers:
 
 ## Screenshots
 
-### Possible moves for king 
-![Moves King](assets/moves_king.png)
+### Possible moves for king
+<img src="assets/moves_king.png" alt="King Moves" width="400">
+
 
 ### Possible moves for pawn 
-![Moves Regular](assets/moves_regular.png)
+
+<img src="assets/moves_regular.png" alt="Pawn Moves" width="400">
 
 ### Welcome screen
-![Welcome Screen](assets/welcome_screen.png)
+<img src="assets/welcome_screen.png" alt="Welcome Screen" width="400">
 
 
 ## Future Improvements
