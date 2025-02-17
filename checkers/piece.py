@@ -1,4 +1,5 @@
-from .constants import SQUARE_SIZE, GREY, CROWN_PATH
+from .constants import SQUARE_SIZE, GREY, CROWN_PATH, WHITE_PIECE, BLACK_PIECE
+from .square import Square
 import pygame
 
 class Piece:
@@ -10,6 +11,10 @@ class Piece:
         self.col = col
         self.color = color
         self.king = False
+        if self.color == WHITE_PIECE:
+            self.type = Square.WHITE_PIECE
+        else:
+            self.type = Square.BLACK_PIECE
         self.x = 0
         self.y = 0
         self.calc_pos()
@@ -20,6 +25,7 @@ class Piece:
 
     def make_king(self):
         self.king = True
+        self.type = Square.WHITE_KING if self.color == WHITE_PIECE else Square.BLACK_KING
     
     def draw(self, window):
         radius = SQUARE_SIZE//2 - self.PADDING
