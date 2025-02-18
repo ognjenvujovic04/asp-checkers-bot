@@ -32,7 +32,7 @@ The heuristic function considers:
 ### Installation
 1. Clone this repository:
    ```sh
-   git clone https://github.com/yourusername/checkers-ai.git
+   git clone https://github.com/ognjenvujovic04/asp-checkers-bot.git
    ```
 2. Install dependencies:
    ```sh
